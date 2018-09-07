@@ -1,6 +1,8 @@
-package com.handsomexi.homework;
+package com.handsomexi.homework.Util;
 
 import android.widget.Toast;
+
+import com.handsomexi.homework.Myapp;
 
 public class Toasty {
     public static void Info(String s){

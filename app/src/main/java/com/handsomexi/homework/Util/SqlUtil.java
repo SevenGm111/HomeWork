@@ -1,7 +1,7 @@
 package com.handsomexi.homework.Util;
 
-import com.handsomexi.homework.HomeWorkBean;
-import com.handsomexi.homework.HomeWorkBeanDao;
+import com.handsomexi.homework.Bean.HomeWorkBean;
+import com.handsomexi.homework.Bean.HomeWorkBeanDao;
 import com.handsomexi.homework.Myapp;
 
 import org.greenrobot.greendao.query.QueryBuilder;

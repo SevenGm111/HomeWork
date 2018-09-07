@@ -1,4 +1,4 @@
-package com.handsomexi.homework;
+package com.handsomexi.homework.Bean;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;

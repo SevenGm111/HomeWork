@@ -3,6 +3,8 @@ package com.handsomexi.homework;
 import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.handsomexi.homework.Bean.DaoMaster;
+import com.handsomexi.homework.Bean.DaoSession;
 import com.handsomexi.homework.Util.Util;
 import com.squareup.leakcanary.LeakCanary;
 
