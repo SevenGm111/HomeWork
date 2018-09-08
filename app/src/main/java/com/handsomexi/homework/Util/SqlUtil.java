@@ -14,8 +14,10 @@ public class SqlUtil {
     private static HomeWorkBeanDao getDao(){
         return Myapp.getInstances().getDaoSession().getHomeWorkBeanDao();
     }
-    public static void save(String ImagePath, String Subject, int SchoolYear, int Semester){
-        getDao().insert(new HomeWorkBean( ImagePath,  Subject,  SchoolYear, Semester,  new Date().getTime()));
+    public static HomeWorkBean save(String ImagePath, String Subject, int SchoolYear, int Semester){
+        HomeWorkBean bean = new HomeWorkBean( ImagePath,  Subject,  SchoolYear, Semester,  new Date().getTime());
+        getDao().insert(bean);
+        return bean;
     }
     public static void delete(String ImagePath){
         getDao().deleteByKey(ImagePath);

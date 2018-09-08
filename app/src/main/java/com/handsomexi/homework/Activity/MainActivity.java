@@ -14,11 +14,12 @@ import android.widget.TextView;
 
 import com.handsomexi.homework.Adapter.FragmentAdapter;
 import com.handsomexi.homework.Fragment.MineFragment;
-import com.handsomexi.homework.Fragment.ProgramFragment;
+import com.handsomexi.homework.Fragment.WrongFragment;
 import com.handsomexi.homework.R;
 import com.handsomexi.homework.Util.ImageUtil;
 import com.handsomexi.homework.Util.PermissionUtil;
 import com.handsomexi.homework.Util.Toasty;
+import com.handsomexi.homework.View.SelectDialog;
 import com.yalantis.ucrop.UCrop;
 import com.zhihu.matisse.Matisse;
 
@@ -60,14 +61,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    String title[] = {"错题集", "我的"};
+    String title[] = {"错题集", "我"};
 
 
     void initView() {
-        mainViewpager.setAdapter(new FragmentAdapter(getSupportFragmentManager(), new Fragment[]{new ProgramFragment(), new MineFragment()}));
-        mainViewpager.addOnPageChangeListener(new OnPagerChangedLisenter());
-        mainImgWrong.setBackgroundResource(R.mipmap.wrong2);
-        mainImgMine.setBackgroundResource(R.mipmap.mine);
+        mainViewpager.setAdapter(new FragmentAdapter(getSupportFragmentManager(), new Fragment[]{new WrongFragment(), new MineFragment()}));
+        OnPagerChangedLisenter pagerChangedLisenter = new OnPagerChangedLisenter();
+        mainViewpager.addOnPageChangeListener(pagerChangedLisenter);
+        pagerChangedLisenter.onPageSelected(0);
     }
 
     @Override
@@ -103,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             case 888: {
                 if (resultCode == -1) {
                     final Uri resultUri = UCrop.getOutput(data);
-                    Toasty.Info("保存成功");
+                    new SelectDialog(this,resultUri.getPath());
                 } else if (resultCode == UCrop.RESULT_ERROR) {
                     Toasty.Info("裁剪失败");
                 }
