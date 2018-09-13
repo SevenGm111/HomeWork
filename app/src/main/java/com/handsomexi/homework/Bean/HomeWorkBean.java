@@ -9,12 +9,12 @@ public class HomeWorkBean {
     @Id
     String ImagePath;
     String Subject;
-    int SchoolYear;
-    int Semester;
+    String SchoolYear;
+    String Semester;
     long time;
-    @Generated(hash = 1778087114)
-    public HomeWorkBean(String ImagePath, String Subject, int SchoolYear,
-            int Semester, long time) {
+    @Generated(hash = 841097588)
+    public HomeWorkBean(String ImagePath, String Subject, String SchoolYear,
+            String Semester, long time) {
         this.ImagePath = ImagePath;
         this.Subject = Subject;
         this.SchoolYear = SchoolYear;
@@ -36,16 +36,16 @@ public class HomeWorkBean {
     public void setSubject(String Subject) {
         this.Subject = Subject;
     }
-    public int getSchoolYear() {
+    public String getSchoolYear() {
         return this.SchoolYear;
     }
-    public void setSchoolYear(int SchoolYear) {
+    public void setSchoolYear(String SchoolYear) {
         this.SchoolYear = SchoolYear;
     }
-    public int getSemester() {
+    public String getSemester() {
         return this.Semester;
     }
-    public void setSemester(int Semester) {
+    public void setSemester(String Semester) {
         this.Semester = Semester;
     }
     public long getTime() {

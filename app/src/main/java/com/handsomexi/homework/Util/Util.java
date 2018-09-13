@@ -20,7 +20,7 @@ public class Util {
         return  new File(Environment.getExternalStorageDirectory().getPath()+"/Pictures/Wrong");
     }
     public static HomeWorkBean getQueryAllBean(){
-        return  new HomeWorkBean("","全部",0,0,0);
+        return  new HomeWorkBean("","全部","全部","全部",0);
     }
     public static List<Integer> intArray2List(int[] a){
         List<Integer> integers = new ArrayList<>();

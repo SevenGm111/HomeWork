@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import com.handsomexi.homework.Bean.DaoMaster;
 import com.handsomexi.homework.Bean.DaoSession;
 import com.handsomexi.homework.Util.Util;
-import com.squareup.leakcanary.LeakCanary;
 
 public class Myapp extends Application {
     public static Myapp instances;
@@ -20,7 +19,6 @@ public class Myapp extends Application {
         instances = this;
         setDatabase();
         Util.mkDirs();
-        if (!LeakCanary.isInAnalyzerProcess(this)) LeakCanary.install(this);
     }
     private void setDatabase() {
         mHelper = new DaoMaster.DevOpenHelper(this, "main", null);

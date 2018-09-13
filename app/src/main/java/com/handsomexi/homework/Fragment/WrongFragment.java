@@ -11,78 +11,92 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.baoyz.swipemenulistview.SwipeMenuListView;
+import com.bumptech.glide.Glide;
 import com.handsomexi.homework.Activity.ImageViewActivity;
+import com.handsomexi.homework.Adapter.SpinnerAdapter;
 import com.handsomexi.homework.Bean.HomeWorkBean;
 import com.handsomexi.homework.R;
 import com.handsomexi.homework.Util.SqlUtil;
 import com.handsomexi.homework.Util.Util;
-import com.scwang.smartrefresh.header.MaterialHeader;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class WrongFragment extends Fragment {
-    @BindView(R.id.wrong_refresh_listview)
-    SwipeMenuListView listview;
-    @BindView(R.id.wrong_refresh_layout)
-    SmartRefreshLayout refreshLayout;
+public class WrongFragment extends Fragment implements AdapterView.OnItemSelectedListener{
+
     Unbinder unbinder;
 
     List<HomeWorkBean> beans;
     WrongListAdapter adapter;
-    String[] array1,array2;
-    List<Integer> array3;
+
+
+    @BindArray(R.array.all_subject)
+    String[] a1;
+    @BindArray(R.array.all_shcoolyear)
+    String[] a2;
+    @BindArray(R.array.all_semester)
+    String[] a3;
+
+    @BindView(R.id.spinner3)
+    Spinner spinner3;
+    @BindView(R.id.spinner1)
+    Spinner spinner1;
+    @BindView(R.id.spinner2)
+    Spinner spinner2;
+    @BindView(R.id.wrong_refresh_listview)
+    ListView listview;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.layout_wrongfragment, null);
+        View view = inflater.inflate(R.layout.fragment_wrong, null);
         unbinder = ButterKnife.bind(this, view);
+        EventBus.getDefault().register(this);
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        EventBus.getDefault().register(this);
-        refreshLayout.setRefreshHeader(new MaterialHeader(getActivity()));
         setListview();
+        setSpinner();
 
 
     }
 
-    @Subscribe
-    public void onEvent(HomeWorkBean bean) {
-        beans = SqlUtil.query(bean.getSubject(), bean.getSchoolYear(), bean.getSemester());
-        adapter.notifyDataSetChanged();
-    }
-    void setListview(){
-        array1 = getActivity().getResources().getStringArray(R.array.default_shcoolyear);
-        array2 = getActivity().getResources().getStringArray(R.array.default_semester);
-        array3 = Util.intArray2List(getActivity().getResources().getIntArray(R.array.default_shcoolyear_int));
-        beans = SqlUtil.query("全部",0,0);
+    void setListview() {
+        beans = SqlUtil.query("全部", "全部", "全部");
         adapter = new WrongListAdapter();
         listview.setAdapter(adapter);
         listview.setOnItemClickListener((parent, view, position, id) -> {
             Intent intent = new Intent(getActivity(), ImageViewActivity.class);
-            intent.putExtra("path",beans.get(position).getImagePath());
+            intent.putExtra("path", beans.get(position).getImagePath());
             startActivity(intent);
         });
+    }
+
+    void setSpinner() {
+        spinner1.setAdapter(new SpinnerAdapter(getContext(), a1));
+        spinner2.setAdapter(new SpinnerAdapter(getContext(), a2));
+        spinner3.setAdapter(new SpinnerAdapter(getContext(), a3));
+        spinner1.setOnItemSelectedListener(this);
+        spinner2.setOnItemSelectedListener(this);
+        spinner3.setOnItemSelectedListener(this);
+
     }
 
     @Override
@@ -90,6 +104,20 @@ public class WrongFragment extends Fragment {
         super.onDestroyView();
         unbinder.unbind();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String subject = getItem(spinner1);
+        String schoolYear = getItem(spinner2);
+        String sem = getItem(spinner3);
+        beans = SqlUtil.query(subject,schoolYear,sem);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 
     class WrongListAdapter extends BaseAdapter {
@@ -111,18 +139,20 @@ public class WrongFragment extends Fragment {
         @Override
         public View getView(int i, View view, ViewGroup parent) {
             ViewHolder holder;
-            if(null == view){
+            if (null == view) {
                 view = getActivity().getLayoutInflater().inflate(R.layout.item_wrong, null);
                 holder = new ViewHolder(view);
                 view.setTag(holder);
-            }else
+            } else
                 holder = (ViewHolder) view.getTag();
             HomeWorkBean bean = beans.get(i);
-            Picasso.get()
+            Glide.with(WrongFragment.this)
                     .load(new File(bean.getImagePath()))
-                    .resize(100, 100)
+                    .asBitmap()
+                    .thumbnail( 0.4f )
+                    .centerCrop()
                     .into(holder.itemWrongImg);
-            holder.itemWrongInfo.setText(bean.getSubject()+"\n\n"+array1[array3.indexOf(bean.getSchoolYear())]+array2[bean.getSemester()-1]);
+            holder.itemWrongInfo.setText(bean.getSubject() + "\n\n" + bean.getSchoolYear() + bean.getSemester());
             holder.itemWrongTime.setText(Util.long2Date(bean.getTime()));
 
             return view;
@@ -142,5 +172,15 @@ public class WrongFragment extends Fragment {
         }
     }
 
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void change(HomeWorkBean bean){
+        beans = SqlUtil.query(bean.getSubject(),bean.getSchoolYear(),bean.getSemester());
+        adapter.notifyDataSetChanged();
+    }
+
+    private String getItem(Spinner spinner){
+        return spinner.getSelectedItem().toString();
+    }
 
 }
