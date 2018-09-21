@@ -38,12 +38,12 @@ public class SpinnerAdapter extends BaseAdapter {
         if(null == view){
             view = LayoutInflater.from(context).inflate(R.layout.item_spinner,null);
             holder = new ViewHolder();
-            holder.textView = view.findViewById(R.id.item_spinner_text);
+            holder.textView = view.findViewById(R.id.item_spinner_text);     //
             view.setTag(holder);
         }else {
             holder = (ViewHolder) view.getTag();
         }
-        holder.textView.setText(array[i]);
+        holder.textView.setText(array[i]);   //设置排序界面下拉的那些选项
 
         return view;
     }

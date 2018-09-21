@@ -30,6 +30,7 @@ import butterknife.OnClick;
 public class MainActivity extends AppCompatActivity {
 
 
+    //初始化底部菜单项的各控件
     @BindView(R.id.main_viewpager)
     ViewPager mainViewpager;
     @BindView(R.id.main_img_wrong)
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.main_add:
-                ImageUtil.openMatisse(this);
+                ImageUtil.openMatisse(this);   //跳转到选择拍照界面
                 break;
             case R.id.main_mine:
                 mainViewpager.setCurrentItem(1);
@@ -66,9 +67,10 @@ public class MainActivity extends AppCompatActivity {
 
     void initView() {
         mainViewpager.setAdapter(new FragmentAdapter(getSupportFragmentManager(), new Fragment[]{new WrongFragment(), new MineFragment()}));
+        //设置底部的菜单项的变色
         OnPagerChangedLisenter pagerChangedLisenter = new OnPagerChangedLisenter();
         mainViewpager.addOnPageChangeListener(pagerChangedLisenter);
-        pagerChangedLisenter.onPageSelected(0);
+        pagerChangedLisenter.onPageSelected(0);  //默认为选中错题集这个选项
     }
 
     @Override
@@ -76,12 +78,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        if (PermissionUtil.allGranted()) {
+        if (PermissionUtil.allGranted()) {    //检测权限，权限都允许了跳转到初始化方法
             initView();
         } else
             PermissionUtil.checkPermissions(this);
     }
 
+    //请求权限的回调方法，如果请求权限失败，还是调用initView()方法
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -92,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //拍照界面结束返回的方法，由imageUtil.openMatisse方法进入拍照界面
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -104,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
             case 888: {
                 if (resultCode == -1) {
                     final Uri resultUri = UCrop.getOutput(data);
-                    new SelectDialog(this,resultUri.getPath());
+                    new SelectDialog(this,resultUri.getPath());     //裁剪完之后，跳转到选择标签界面
                 } else if (resultCode == UCrop.RESULT_ERROR) {
                     Toasty.Info("裁剪失败");
                 }
@@ -118,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         }
 
+        //设置选择器，按到对应菜单项图标和文字会一起变色
         @Override
         public void onPageSelected(int position) {
             setTitle(title[position]);

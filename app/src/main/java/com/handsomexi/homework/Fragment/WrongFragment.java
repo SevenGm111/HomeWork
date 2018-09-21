@@ -35,6 +35,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+/**
+ * 这是错题集这个页面的fragment
+ */
+
 public class WrongFragment extends Fragment implements AdapterView.OnItemSelectedListener{
 
     Unbinder unbinder;
@@ -65,7 +69,7 @@ public class WrongFragment extends Fragment implements AdapterView.OnItemSelecte
 
         View view = inflater.inflate(R.layout.fragment_wrong, null);
         unbinder = ButterKnife.bind(this, view);
-        EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this);    //注册一个eventbus事件
         return view;
     }
 
@@ -146,7 +150,7 @@ public class WrongFragment extends Fragment implements AdapterView.OnItemSelecte
             } else
                 holder = (ViewHolder) view.getTag();
             HomeWorkBean bean = beans.get(i);
-            Glide.with(WrongFragment.this)
+            Glide.with(WrongFragment.this)    //
                     .load(new File(bean.getImagePath()))
                     .asBitmap()
                     .thumbnail( 0.4f )
@@ -173,7 +177,7 @@ public class WrongFragment extends Fragment implements AdapterView.OnItemSelecte
     }
 
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe(threadMode = ThreadMode.MAIN)     //EventBus的接受处理
     public void change(HomeWorkBean bean){
         beans = SqlUtil.query(bean.getSubject(),bean.getSchoolYear(),bean.getSemester());
         adapter.notifyDataSetChanged();

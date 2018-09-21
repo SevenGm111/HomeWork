@@ -25,13 +25,13 @@ public class SelectDialog  {
     private String[] array1,array2,array3;
     public SelectDialog(Context context,String path) {
         this.context = context;
-        array1 = context.getResources().getStringArray(R.array.default_subject);
-        array2 = context.getResources().getStringArray(R.array.default_shcoolyear);
-        array3 = context.getResources().getStringArray(R.array.default_semester);
+        array1 = context.getResources().getStringArray(R.array.default_subject);   //把科目放进集合中
+        array2 = context.getResources().getStringArray(R.array.default_shcoolyear); //把年级放进集合中
+        array3 = context.getResources().getStringArray(R.array.default_semester);   //把学期放进集合中
 
-        new AlertDialog.Builder(context)
+        new AlertDialog.Builder(context)             //弹出对话框
                 .setTitle("选择标签")
-                .setOnCancelListener(dialog -> {
+                .setOnCancelListener(dialog -> {     //怎么做到的
                     if(stats==0) {
                         new File(path).delete();
                         Toasty.Info("取消保存");
@@ -41,8 +41,8 @@ public class SelectDialog  {
                         String schoolYear = getItem(spinner2);
                         String Sem = getItem(spinner3);
 
-                        SqlUtil.save(path,subject,schoolYear,Sem);
-                        EventBus.getDefault().post(Util.getQueryAllBean());
+                        SqlUtil.save(path,subject,schoolYear,Sem);   //保存到数据库中
+                        EventBus.getDefault().post(Util.getQueryAllBean());     //发送事件
                         Toasty.Info("保存成功");
                     }
                 })
