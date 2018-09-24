@@ -1,0 +1,121 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+xmlns:line="http://schemas.android.com/apk/res-auto"
+tools:context=".Activity.registerActivity"
+android:paddingLeft="90dp"
+android:paddingRight="70dp"
+android:paddingTop="100dp"
+android:background="@mipmap/background2">
+
+
+
+
+<LinearLayout
+    android:id="@+id/Panel"
+    android:layout_width="250dp"
+    android:layout_height="400dp"
+    android:background="@drawable/background_register_div"
+    android:orientation="vertical"
+
+    >
+
+    <com.handsomexi.homework.ui.LineEditText
+        android:id="@+id/register_account_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/login_margin_left_right_edit"
+        android:layout_marginRight="@dimen/login_margin_left_right_edit"
+        android:layout_marginTop="50dp"
+        android:background="@color/trans"
+        android:drawablePadding="@dimen/login_et_dw_padding"
+        android:hint="请输入用户名"
+        android:paddingBottom="@dimen/login_et_padding_bottom"
+        android:textColor="#fff"
+        android:textSize="@dimen/login_et_text_size"
+        line:lineColorEt="@color/start_button_color" />
+
+    <com.handsomexi.homework.ui.LineEditText
+        android:id="@+id/register_password_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/login_margin_left_right_edit"
+        android:layout_marginRight="@dimen/login_margin_left_right_edit"
+        android:layout_marginTop="20dp"
+        android:background="@color/trans"
+        android:hint="请输入用户密码"
+        android:textColor="#fff"
+        android:textSize="@dimen/login_et_text_size"
+        line:lineColorEt="@color/start_line_color" />
+
+    <RelativeLayout
+        android:layout_marginTop="@dimen/login_pass_et_margin_top"
+        android:layout_marginRight="@dimen/login_margin_left_right_edit"
+        android:layout_marginLeft="@dimen/login_margin_left_right_edit"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.handsomexi.homework.ui.LineEditText
+            android:paddingBottom="@dimen/login_et_padding_bottom"
+            android:drawablePadding="@dimen/login_et_dw_padding"
+            line:lineColorEt="@color/start_button_color"
+            android:background="@color/trans"
+            android:textSize="@dimen/login_et_text_size"
+            android:hint="请输入手机号码"
+            android:id="@+id/register_phoneNumber_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:id="@+id/check_1"
+            android:text="获取验证码"
+            android:textColor="@color/start_button_color"
+            android:background="@color/trans"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <com.handsomexi.homework.ui.LineEditText
+        android:id="@+id/register_code_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/login_margin_left_right_edit"
+        android:layout_marginRight="@dimen/login_margin_left_right_edit"
+        android:layout_marginTop="20dp"
+        android:background="@color/trans"
+        android:hint="请输入验证码"
+        android:textColor="#fff"
+        android:textSize="@dimen/login_et_text_size"
+        line:lineColorEt="@color/start_line_color" />
+
+
+    <Button
+        android:id="@+id/register_1"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="48dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_register"
+        android:text="注册"
+        android:textColor="@color/md_cyan_500"
+        android:textSize="18sp" />
+
+
+</LinearLayout>
+
+
+
+
+
+
+
+</LinearLayout>

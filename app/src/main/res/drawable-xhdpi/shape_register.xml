@@ -14,5 +14,5 @@
         android:top="10dp">
     </padding>
     <!--设置边框线的宽度和颜色-->
-    <stroke android:width="3dp" android:color="@color/md_red_600" />
+    <stroke android:width="3dp" android:color="@color/md_cyan_500" />
 </shape>

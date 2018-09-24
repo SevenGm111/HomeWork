@@ -2,7 +2,14 @@
 <resources>
     <color name="colorPrimary">#00897B</color>
     <color name="colorPrimaryDark">#00897B</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#191c1e</color>
+
+
+    <!-- EditText的颜色-->
+    <color name="start_line_color">#E0004E</color>
+    <color name="start_button_color">#D80050</color>
+
+
 
 
     <color name="colorLoginButton">#004684</color>

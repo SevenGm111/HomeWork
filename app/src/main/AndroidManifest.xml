@@ -19,17 +19,27 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
         <activity
             android:name=".Activity.ImageViewActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
+
+
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -45,10 +55,15 @@
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
         <activity android:name=".Activity.LoginActivity">
+
         </activity>
+
         <activity android:name=".Activity.registerActivity">
+
         </activity>
+
     </application>
 
 </manifest>
